@@ -1,0 +1,31 @@
+﻿@model FamilyTipping.Models.ViewModels.TipEntryViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Round @Model.Round.Id</h2>
+
+<table class="tip-entry">
+    <thead>
+        <tr>
+            <th>Home</th>
+            <th>Away</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var match in Model.Round.Matches)
+        {
+            <tr data-matchid="@match.Id">
+                @foreach (var team in match.Teams)
+                {
+                    <td data-teamid="@team.Id" data-prediction="@(team == match.Teams.First() ? 1 : 2)">@team.Name</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<span>
+    @(DateTime.Now.Minute % 2 == 0 ? "I said tip it!" : "Tip it good!")
+</span>
